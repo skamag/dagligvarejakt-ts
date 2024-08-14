@@ -5,20 +5,39 @@ import Grid from "./components/Grid"
 import Vare from "./components/Vare"
 import "./App.css"
 
-// interface Product {
-//   id: number
-//   name: string
-//   price: number
-// }
+interface Label {
+  name: string
+  icon: {
+    png: string
+  }
+}
 
-// interface ApiResponse {
-//   products: Product[]
-//   total: number
-//   // Add other properties if needed
-// }
+interface Category {
+  name: string
+}
+
+interface Store {
+  name: string
+  logo: string
+}
+
+interface Product {
+  id: number
+  name: string
+  current_price: number
+  image: string
+  brand: string | null
+  labels: Label[]
+  category: Category[]
+  store: Store
+}
+
+interface ApiResponse {
+  data: Product[]
+}
 
 function App() {
-  const [data, setData] = useState(null)
+  const [data, setData] = useState<ApiResponse | null>(null)
   const [page, setPage] = useState(1)
 
   const pageDown = () => {
@@ -56,8 +75,8 @@ function App() {
               element={
                 <Grid
                   data={data}
-                  setData={setData}
-                  valgtVare={valgtVare}
+                  // setData={setData}
+                  // valgtVare={valgtVare}
                   setValgtVare={setValgtVare}
                   page={page}
                   pageDown={pageDown}
