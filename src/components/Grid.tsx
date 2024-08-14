@@ -4,7 +4,52 @@ import { Link } from "react-router-dom"
 import "./grid.css"
 // import './alternateStyling.css'
 
-export default function Main({ data, setValgtVare, page, pageDown, pageUp }) {
+interface Label {
+  name: string
+  icon: {
+    png: string
+  }
+}
+
+interface Category {
+  name: string
+}
+
+interface Store {
+  name: string
+  logo: string
+}
+
+interface Product {
+  id: number
+  name: string
+  current_price: number
+  image: string
+  brand: string | null
+  labels: Label[]
+  category: Category[]
+  store: Store
+}
+
+interface ApiResponse {
+  data: Product[]
+}
+
+interface MainProps {
+  data: ApiResponse | null
+  setValgtVare: (name: string) => void
+  page: number
+  pageDown: () => void
+  pageUp: () => void
+}
+
+const Grid: React.FC<MainProps> = ({
+  data,
+  setValgtVare,
+  page,
+  pageDown,
+  pageUp,
+}) => {
   const [searchText, setSearchText] = useState("")
   const [sorting, setSorting] = useState("")
   const [burgerToggle, setBurgerToggle] = useState(false)
@@ -27,42 +72,44 @@ export default function Main({ data, setValgtVare, page, pageDown, pageUp }) {
     }
   }, [data])
 
-  const handleSearch = (event) => {
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     let text = event.target.value
     setSearchText(text)
   }
 
-  const handleSort = (event) => {
+  const handleSort = (event: React.ChangeEvent<HTMLSelectElement>) => {
     let valgtSort = event.target.value
     setSorting(valgtSort)
   }
 
-  const handleClick = (data) => {
-    setValgtVare(data.name)
+  const handleClick = (product: Product) => {
+    setValgtVare(product.name)
   }
 
   const toggleBurger = () => {
     burgerToggle ? setBurgerToggle(false) : setBurgerToggle(true)
   }
 
-  const handleSelectCategory = (event) => {
+  const handleSelectCategory = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     let category = event.target.value
     setKategori(category)
   }
 
-  const handleSelectBrand = (event) => {
+  const handleSelectBrand = (event: React.ChangeEvent<HTMLSelectElement>) => {
     let brand = event.target.value
     setMerkevare(brand)
   }
 
-  const handleChangePrisLav = (event) => {
-    let pris = event.target.value
-    pris >= 0 ? setPrisLav(pris) : setPrisLav("")
+  const handleChangePrisLav = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const pris = event.target.valueAsNumber
+    setPrisLav(pris >= 0 ? pris : 0)
   }
 
-  const handleChangePrisHoy = (event) => {
-    let pris = event.target.value
-    pris >= 0 ? setPrisHoy(pris) : setPrisHoy("")
+  const handleChangePrisHoy = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const pris = event.target.valueAsNumber
+    setPrisHoy(pris >= 0 ? pris : 0)
   }
 
   return (
@@ -167,7 +214,7 @@ export default function Main({ data, setValgtVare, page, pageDown, pageUp }) {
                 (value, index, self) =>
                   index ===
                   self.findIndex(
-                    (t) => t.place === value.place && t.name === value.name
+                    (t) => t.id === value.id && t.name === value.name
                   )
               )
               .sort((a, b) => {
@@ -200,12 +247,12 @@ export default function Main({ data, setValgtVare, page, pageDown, pageUp }) {
                   : () => true
               )
               .filter(
-                prisLav !== ""
+                prisLav !== null
                   ? (item) => item.current_price >= prisLav
                   : () => true
               )
               .filter(
-                prisHoy !== ""
+                prisHoy !== null
                   ? (item) => item.current_price <= prisHoy
                   : () => true
               )
@@ -275,3 +322,5 @@ export default function Main({ data, setValgtVare, page, pageDown, pageUp }) {
     </main>
   )
 }
+
+export default Grid

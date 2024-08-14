@@ -5,20 +5,20 @@ import Grid from "./components/Grid"
 import Vare from "./components/Vare"
 import "./App.css"
 
-interface Product {
-  id: number
-  name: string
-  price: number
-}
+// interface Product {
+//   id: number
+//   name: string
+//   price: number
+// }
 
-interface ApiResponse {
-  products: Product[]
-  total: number
-  // Add other properties if needed
-}
+// interface ApiResponse {
+//   products: Product[]
+//   total: number
+//   // Add other properties if needed
+// }
 
 function App() {
-  const [data, setData] = useState<ApiResponse | null>(null)
+  const [data, setData] = useState(null)
   const [page, setPage] = useState(1)
 
   const pageDown = () => {
