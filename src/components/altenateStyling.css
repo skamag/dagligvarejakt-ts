@@ -1,0 +1,135 @@
+/* main.css */
+
+/* Container for the main grid layout */
+.gridContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  padding: 20px;
+  background-color: #eef2f7;
+}
+
+/* Container for the search input */
+.searchContainer {
+  grid-column: span 3;
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 10px 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.searchContainer .fa-search {
+  margin-right: 10px;
+  color: #888;
+}
+
+.searchName {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 8px 12px;
+  font-size: 16px;
+}
+
+/* Styling for the select dropdowns */
+select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #ffffff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Container for the food items */
+.matvareContainer {
+  grid-column: span 3;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+/* Individual card for each food item */
+.card {
+  text-decoration: none;
+  color: inherit;
+}
+
+.article {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.article:hover {
+  transform: scale(1.05);
+}
+
+.imgContainer {
+  width: 100%;
+  height: 150px;
+  overflow: hidden;
+}
+
+.imgContainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.descriptionContainer {
+  padding: 15px;
+  font-size: 14px;
+  background-color: #f9fafb;
+}
+
+.descriptionContainer span {
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.descriptionContainer b {
+  font-weight: bold;
+  color: #ff6347; /* Tomato color for highlighting price */
+}
+
+/* Additional colorful styles */
+.gridContainer {
+  background-color: #e0f7fa;
+}
+
+.searchContainer {
+  background-color: #4db6ac;
+}
+
+.searchName {
+  background-color: #e0f2f1;
+}
+
+select {
+  background-color: #80deea;
+}
+
+.article {
+  background-color: #ffffff;
+}
+
+.article:hover {
+  background-color: #b2ebf2;
+}
+
+.descriptionContainer {
+  background-color: #e0f7fa;
+}
