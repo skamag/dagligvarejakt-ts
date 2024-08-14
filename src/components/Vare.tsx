@@ -1,7 +1,33 @@
 import React from "react"
 import "./vare.css"
 
-export default function Vare({ data, valgtVare }) {
+interface VareProps {
+  data: {
+    data: {
+      id: string
+      name: string
+      current_price: number
+      image: string
+      store: {
+        logo: string
+        name: string
+      }
+      url: string
+      description?: string
+      ingredients?: string
+      labels?: {
+        icon: {
+          png: string
+        }
+        names: string
+      }[]
+      place?: string
+    }[]
+  } | null
+  valgtVare: string
+}
+
+export default function Vare({ data, valgtVare }: VareProps) {
   const filteredItems =
     data && valgtVare !== ""
       ? data.data.filter((item) =>
@@ -18,7 +44,7 @@ export default function Vare({ data, valgtVare }) {
   return (
     <article className="valgtVareContainer">
       {valgtVare &&
-        data.data
+        data?.data
           .filter((item) =>
             item.name.toLowerCase().includes(valgtVare.toLowerCase())
           )

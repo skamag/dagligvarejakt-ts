@@ -5,35 +5,35 @@ import Grid from "./components/Grid"
 import Vare from "./components/Vare"
 import "./App.css"
 
-interface Label {
-  name: string
-  icon: {
-    png: string
-  }
-}
+// interface Label {
+//   name: string
+//   icon: {
+//     png: string
+//   }
+// }
 
-interface Category {
-  name: string
-}
+// interface Category {
+//   name: string
+// }
 
-interface Store {
-  name: string
-  logo: string
-}
+// interface Store {
+//   name: string
+//   logo: string
+// }
 
-interface Product {
-  id: number
-  name: string
-  current_price: number
-  image: string
-  brand: string | null
-  labels: Label[]
-  category: Category[]
-  store: Store
-}
+// interface Product {
+//   id: number
+//   name: string
+//   current_price: number
+//   image: string
+//   brand: string | null
+//   labels: Label[]
+//   category: Category[]
+//   store: Store
+// }
 
 interface ApiResponse {
-  data: Product[]
+  data: any[]
 }
 
 function App() {
