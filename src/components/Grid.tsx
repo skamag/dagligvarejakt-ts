@@ -29,6 +29,7 @@ interface Product {
   labels: Label[]
   category: Category[]
   store: Store
+  place: string
 }
 
 interface ApiResponse {
@@ -214,7 +215,7 @@ const Grid: React.FC<MainProps> = ({
                 (value, index, self) =>
                   index ===
                   self.findIndex(
-                    (t) => t.id === value.id && t.name === value.name
+                    (t) => t.place === value.place && t.name === value.name
                   )
               )
               .sort((a, b) => {
