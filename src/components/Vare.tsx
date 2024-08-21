@@ -81,10 +81,11 @@ export default function Vare({ data, valgtVare }: VareProps) {
 
   // Prepare chart data
   const chartDatasets = filteredItems.map((item, index) => {
-    // const dates = item.price_history?.map((pricePoint) =>
-    //   pricePoint.date.slice(0, 10)
-    // )
-    const prices = item.price_history?.map((pricePoint) => pricePoint.price)
+    const sortedPriceHistory = item.price_history?.sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+    )
+
+    const prices = sortedPriceHistory?.map((pricePoint) => pricePoint.price)
 
     return {
       label: `${item.store.name}`,
