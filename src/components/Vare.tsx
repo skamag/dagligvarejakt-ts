@@ -66,6 +66,49 @@ export default function Vare({ data, valgtVare }: VareProps) {
   const lowestPrice =
     sortedItems.length > 0 ? sortedItems[0].current_price : null
 
+  // Prepare chart data
+  const chartDatasets = filteredItems.map((item) => {
+    // const dates = item.price_history?.map((pricePoint) =>
+    //   pricePoint.date.slice(0, 10)
+    // )
+    const prices = item.price_history?.map((pricePoint) => pricePoint.price)
+
+    return {
+      label: `${item.store.name}`,
+      data: prices,
+      fill: false,
+      borderColor: `#${Math.floor(Math.random() * 16777215).toString(16)}`, // Random color for each line
+      tension: 0.1,
+      // pointBackgroundColor: `#${Math.floor(Math.random() * 16777215).toString(
+      //   16
+      // )}`,
+    }
+  })
+
+  const chartData = {
+    labels: filteredItems[0]?.price_history?.map((pricePoint) =>
+      pricePoint.date.slice(0, 10)
+    ),
+    datasets: chartDatasets,
+  }
+
+  const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: function (context: any) {
+            const label = context.dataset.label || ""
+            const price = context.raw
+            const date = context.label
+            return `${label}: ${price} kr (Date: ${date})`
+          },
+        },
+      },
+    },
+  }
+
   return (
     <article className="valgtVareContainer">
       {valgtVare &&
@@ -80,109 +123,97 @@ export default function Vare({ data, valgtVare }: VareProps) {
                 (t) => t.place === value.place && t.name === value.name
               )
           )
-          .map((filteredItem) => {
-            const priceHistory = filteredItem.price_history || []
-            const dates = priceHistory.map((point) => point.date.slice(0, 10))
-            const prices = priceHistory.map((point) => point.price)
-
-            const chartData = {
-              labels: dates,
-              datasets: [
-                {
-                  label: `Prisutvikling de siste 25 dagene`,
-                  data: prices,
-                  fill: false,
-                  borderColor: "rgb(75, 192, 192)",
-                  tension: 0.1,
-                },
-              ],
-            }
-
-            return (
-              <React.Fragment key={filteredItem.id}>
-                <div className="flex">
-                  <div>
-                    <div className="valgtVareHeader">
-                      <img
-                        key={filteredItem.id}
-                        className="vareImage"
-                        src={filteredItem.image}
-                        alt={filteredItem.name}
-                      ></img>
-                      <h5 className="valgtVareName">{valgtVare}</h5>
-                    </div>
-                    <div className={"priserContainer"}>
-                      {data && valgtVare !== ""
-                        ? sortedItems.map((filteredItem) => (
-                            <div
-                              key={filteredItem.id}
-                              className={"storeContainer"}
+          .map((filteredItem) => (
+            <React.Fragment key={filteredItem.id}>
+              <div className="flex">
+                <div>
+                  <div className="valgtVareHeader">
+                    <img
+                      key={filteredItem.id}
+                      className="vareImage"
+                      src={filteredItem.image}
+                      alt={filteredItem.name}
+                    ></img>
+                    <h5 className="valgtVareName">{valgtVare}</h5>
+                  </div>
+                  <div className={"priserContainer"}>
+                    {data && valgtVare !== ""
+                      ? sortedItems.map((filteredItem) => (
+                          <div
+                            key={filteredItem.id}
+                            className={"storeContainer"}
+                          >
+                            <a
+                              href={filteredItem.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
                             >
-                              <a href={filteredItem.url} target="_blank">
-                                <div className="storeLogoContainer">
-                                  <img
-                                    className={"storeLogo"}
-                                    src={filteredItem.store.logo}
-                                    alt={filteredItem.store.name}
-                                  />
-                                </div>
-                                <span
-                                  className={
-                                    filteredItem.current_price === lowestPrice
-                                      ? "bold"
-                                      : ""
-                                  }
-                                >
-                                  {filteredItem.current_price} kr
-                                </span>
-                              </a>
-                            </div>
-                          ))
-                        : valgtVare === ""
-                        ? "Ingen vare valgt..."
-                        : "Loading..."}
-                    </div>
-                  </div>
-                  <div className="valgtVareFacts">
-                    <div>
-                      <p>
-                        <b>Beskrivelse</b>
-                      </p>
-                      <p>
-                        {filteredItem.description
-                          ? filteredItem.description
-                          : "Ingen info"}
-                      </p>
-                    </div>
-                    <div>
-                      <p>
-                        <b>Innhold</b>
-                      </p>
-                      <p>
-                        {filteredItem.ingredients
-                          ? filteredItem.ingredients
-                          : "Ingen info"}
-                      </p>
-                    </div>
-                    <div className="vareLabels">
-                      {filteredItem.labels &&
-                        filteredItem.labels.map((label) => (
-                          <img
-                            className="vareLabelImg"
-                            src={label.icon.png}
-                            alt={label.names}
-                          ></img>
-                        ))}
-                    </div>
+                              <div className="storeLogoContainer">
+                                <img
+                                  className={"storeLogo"}
+                                  src={filteredItem.store.logo}
+                                  alt={filteredItem.store.name}
+                                />
+                              </div>
+                              <span
+                                className={
+                                  filteredItem.current_price === lowestPrice
+                                    ? "bold"
+                                    : ""
+                                }
+                              >
+                                {filteredItem.current_price} kr
+                              </span>
+                            </a>
+                          </div>
+                        ))
+                      : valgtVare === ""
+                      ? "Ingen vare valgt..."
+                      : "Loading..."}
                   </div>
                 </div>
-
-                <div className="priceHistoryContainer">
-                  <Line data={chartData} />
+                <div className="valgtVareFacts">
+                  <div>
+                    <p>
+                      <b>Beskrivelse</b>
+                    </p>
+                    <p>
+                      {filteredItem.description
+                        ? filteredItem.description
+                        : "Ingen info"}
+                    </p>
+                  </div>
+                  <div>
+                    <p>
+                      <b>Innhold</b>
+                    </p>
+                    <p>
+                      {filteredItem.ingredients
+                        ? filteredItem.ingredients
+                        : "Ingen info"}
+                    </p>
+                  </div>
+                  <div className="vareLabels">
+                    {filteredItem.labels &&
+                      filteredItem.labels.map((label) => (
+                        <img
+                          className="vareLabelImg"
+                          src={label.icon.png}
+                          alt={label.names}
+                        ></img>
+                      ))}
+                  </div>
                 </div>
-              </React.Fragment>
-            )
-          })}
+              </div>
+              <div className="priceHistoryContainer">
+                <Line
+                  data={chartData}
+                  options={chartOptions}
+                  style={{ width: "100%", height: "auto" }}
+                />
+              </div>
+            </React.Fragment>
+          ))}
     </article>
   )
 }

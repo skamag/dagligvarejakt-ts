@@ -127,9 +127,12 @@ select:focus {
 }
 .labelsContainer {
   display: flex;
+  position: absolute;
 }
 .labelImg {
   width: 30px;
+  border-radius: 20%;
+  box-shadow: 0 0 8px white;
 }
 .imgContainer {
   display: flex;

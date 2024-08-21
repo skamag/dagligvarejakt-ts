@@ -39,6 +39,7 @@ interface ApiResponse {
 function App() {
   const [data, setData] = useState<ApiResponse | null>(null)
   const [page, setPage] = useState(1)
+  const [valgtVare, setValgtVare] = useState("")
 
   const pageDown = () => {
     page > 1 && setPage((page) => page - 1)
@@ -62,8 +63,6 @@ function App() {
       .then((json) => setData(json))
       .catch((error) => console.error(error))
   }, [page])
-
-  const [valgtVare, setValgtVare] = useState("")
 
   return (
     <div className="App">
