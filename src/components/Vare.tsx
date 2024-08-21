@@ -66,8 +66,21 @@ export default function Vare({ data, valgtVare }: VareProps) {
   const lowestPrice =
     sortedItems.length > 0 ? sortedItems[0].current_price : null
 
+  // Define a set of specific colors for the charts
+  const colors = [
+    // "#FF6384", // Red
+    // "#36A2EB", // Blue
+    // "#FFCE56", // Yellow
+    // "#4BC0C0", // Teal
+    // "#9966FF", // Purple
+    // "#FF9F40", // Orange
+    "#2f7070", // Turkis
+    "#7e3e71", // Lilla
+    "#405070", // Blå
+  ]
+
   // Prepare chart data
-  const chartDatasets = filteredItems.map((item) => {
+  const chartDatasets = filteredItems.map((item, index) => {
     // const dates = item.price_history?.map((pricePoint) =>
     //   pricePoint.date.slice(0, 10)
     // )
@@ -77,11 +90,9 @@ export default function Vare({ data, valgtVare }: VareProps) {
       label: `${item.store.name}`,
       data: prices,
       fill: false,
-      borderColor: `#${Math.floor(Math.random() * 16777215).toString(16)}`, // Random color for each line
+      borderColor: colors[index % colors.length], // Cycle through the colors
       tension: 0.1,
-      // pointBackgroundColor: `#${Math.floor(Math.random() * 16777215).toString(
-      //   16
-      // )}`,
+      pointBackgroundColor: colors[index % colors.length],
     }
   })
 
