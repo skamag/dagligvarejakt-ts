@@ -30,7 +30,7 @@
 }
 .logo-text {
   /* background: linear-gradient(to right, #587e7e, #89577f); */
-  background: linear-gradient(to right, #2f7070, #7e3e71);
+  background: linear-gradient(to right, #2f7070, #405070, #7e3e71);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
