@@ -7,6 +7,10 @@ interface VareProps {
       id: string
       name: string
       current_price: number
+      price_history?: {
+        price: number
+        date: string
+      }[]
       image: string
       store: {
         logo: string
@@ -136,6 +140,11 @@ export default function Vare({ data, valgtVare }: VareProps) {
                       ></img>
                     ))}
                 </div>
+              </div>
+              <div className="priceHistoryContainer">
+                {filteredItem.price_history?.map((pricepoint) => (
+                  <p>{pricepoint.price + " " + pricepoint.date}</p>
+                ))}
               </div>
             </React.Fragment>
           ))}
