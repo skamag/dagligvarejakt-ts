@@ -66,7 +66,6 @@ export default function Vare({ data, valgtVare }: VareProps) {
   const lowestPrice =
     sortedItems.length > 0 ? sortedItems[0].current_price : null
 
-  // Define a set of specific colors for the charts
   const colors = [
     // "#FF6384", // Red
     // "#36A2EB", // Blue
@@ -79,7 +78,6 @@ export default function Vare({ data, valgtVare }: VareProps) {
     "#405070", // Blå
   ]
 
-  // Prepare chart data
   const chartDatasets = filteredItems.map((item, index) => {
     const sortedPriceHistory = item.price_history?.sort(
       (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()

@@ -32,12 +32,12 @@ import "./App.css"
 //   store: Store
 // }
 
-interface ApiResponse {
-  data: any[]
-}
+// interface ApiResponse {
+//   data: any[]
+// }
 
 function App() {
-  const [data, setData] = useState<ApiResponse | null>(null)
+  const [data, setData] = useState(/*<ApiResponse | null>*/ null)
   const [page, setPage] = useState(1)
   const [valgtVare, setValgtVare] = useState("")
 
