@@ -14,7 +14,7 @@ export default function Layout() {
             <h2 className="logo-text alternate-logo-text">Matinnhold</h2>
           </div>
         </Link>
-        <div className="loginContainer">Logg inn</div>
+        {/* <div className="loginContainer">Logg inn</div> */}
         {/* <p>Finn dagligvarer og sammenlign priser fra ulike dagligvarekjeder.</p> */}
       </div>
       <Outlet />
